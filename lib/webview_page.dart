@@ -13,12 +13,20 @@ class WebviewPage extends StatefulWidget {
 }
 
 class _WebviewPageState extends State<WebviewPage> {
+  InAppWebViewController? _webViewController;
+
   @override
   Widget build(BuildContext context) {
-    return InAppWebView(
-      initialUrlRequest: URLRequest(
-        url: Uri.parse(widget.url),
-      ),
-    );
+    return WillPopScope(
+        child: InAppWebView(
+          initialUrlRequest: URLRequest(
+            url: Uri.parse(widget.url),
+          ),
+          onWebViewCreated: (controller) => _webViewController = controller,
+        ),
+        onWillPop: () async {
+          _webViewController!.goBack();
+          return false;
+        });
   }
 }
