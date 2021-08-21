@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebviewPage extends StatefulWidget {
   final String url;
@@ -15,6 +15,7 @@ class WebviewPage extends StatefulWidget {
 class _WebviewPageState extends State<WebviewPage> {
   @override
   Widget build(BuildContext context) {
-    return WebView(initialUrl: widget.url);
+    return InAppWebView(
+        initialUrlRequest: URLRequest(url: Uri.parse(widget.url)));
   }
 }
